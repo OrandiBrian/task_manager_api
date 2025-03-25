@@ -1,0 +1,71 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Django secret key & settings overrides
+.env
+*.env
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Django migrations
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/__pycache__/
+
+# Logs
+logs/
+*.log
+*.out
+*.err
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Media & Static files
+media/
+staticfiles/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python packaging
+*.egg-info/
+*.eggs/
+*.manifest
+*.spec
+
+# Compiled files
+*.so
+*.dll
+*.dylib
+
+# Coverage and testing
+htmlcov/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Deployment
+*.pem
+*.crt
+*.key
+
+# Heroku & Cloud deployment
+.venv/
+Procfile
+runtime.txt
