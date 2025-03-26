@@ -10,4 +10,4 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 # index view
 def index(request):
-    return render(request, "tasks/base.html")
+    return render(request, "tasks/index.html")
