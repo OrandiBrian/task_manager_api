@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Task Manager{% endblock %}</title>
+        <title>Task Manager</title>
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     </head>
     <body class="bg-gray-100 text-gray-900">
@@ -13,13 +13,11 @@
             <div class="container mx-auto flex justify-between items-center px-4">
                 <a href="#" class="text-3xl font-bold">Task Manager</a>
                 <div>
-                    {% if user.is_authenticated %}
-                        <a href="#" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded">New Task</a>
-                        <a href="#" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded">Logout</a>
-                    {% else %}
-                        <a href="#" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded">Login</a>
-                        <a href="#" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded">Register</a>
-                    {% endif %}
+                    <a href="#" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded">New Task</a>
+                    <a href="#" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded">Logout</a>
+                
+                    <a href="#" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded">Login</a>
+                    <a href="#" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded">Register</a>
                 </div>
             </div>
         </nav>
@@ -27,8 +25,7 @@
         <!-- Main Content -->
         <main>
             <div class="container mx-auto mt-6 px-4">
-                {% block content %}
-                {% endblock %}
+                <p>Here are the tasks</p>
             </div>
         </main>
 
