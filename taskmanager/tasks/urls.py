@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TaskViewSet
+from .views import TaskViewSet, index
 from rest_framework.routers import DefaultRouter
 
 # setting routers
@@ -12,4 +12,5 @@ app_name = "tasks"
 # configuring urls
 urlpatterns = [
     path("api/", include(router.urls)),
+    path("", index, name="index"),
 ]
