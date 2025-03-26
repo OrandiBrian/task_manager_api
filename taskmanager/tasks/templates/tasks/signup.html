@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
+        <title>Signup</title>
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     </head>
     <body class="bg-gray-100 text-gray-900">
@@ -24,7 +24,7 @@
         <!-- Main Content -->
         <main class="px-8 py-6">
             <div class="text-center flex flex-col items-center">
-                <h1 class="text-5xl px-20 py-6">Log In</h1>
+                <h1 class="text-5xl px-20 py-6">Sign Up</h1>
 
                 <div class="w-96 py-4 mt-3 bg-gray-700 rounded-lg shadow-md text-white flex flex-col items-center justify-center">
                     <form>
@@ -36,15 +36,19 @@
                             <label>Password:</label><br>
                             <input type="password" class="w-full py-2 px-6 bg-slate-500 mt-2" name="password" required><br><br>
                         </div>
+                        <div>
+                            <label>Repeat Password:</label><br>
+                            <input type="password" class="w-full py-2 px-6 bg-slate-500 mt-2" name="password" required><br><br>
+                        </div>
 
                         <div>
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Log In</button>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <p class="mt-4 text-center">Don't have an account? <a class="text-blue-500 hover:underline hover:text-blue-800" href="#">Sign Up</a></p>
+            <p class="mt-4 text-center">Already have an account? <a class="text-blue-500 hover:underline hover:text-blue-800" href="#">Sign In</a></p>
 
         </main>
 
