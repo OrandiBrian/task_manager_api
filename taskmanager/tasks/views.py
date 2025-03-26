@@ -11,3 +11,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 # index view
 def index(request):
     return render(request, "tasks/index.html")
+
+# about page view
+def about(request):
+    return render(request, "tasks/about.html")

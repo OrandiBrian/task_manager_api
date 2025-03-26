@@ -1,0 +1,41 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h2 class="text-3xl px-20 py-4 mt-3">About Task Manager App</h2>
+
+                <div class="space-y-4 mt-6 px-20">
+                    <p>Welcome to <strong>Task Manager</strong>, your go-to application for organizing and tracking tasks efficiently. Whether you're managing personal to-dos, work assignments, or collaborative projects, Task Manager helps you stay on top of your responsibilities with ease.</p>
+
+                    <h2 class="text-2xl">About Task Manager App</h2>
+                    <ul class="list-disc list-inside mt-2 text-gray-700 space-y-2">
+                        <li><span class="font-bold">Simple & Intuitive:</span> Easily create, update, and track tasks.</li>
+                        <li><span class="font-bold">Task Prioritization:</span> Set priorities (Low, Medium, High) to focus on what matters.</li>
+                        <li><span class="font-bold">Due Date Reminders:</span> Keep track of deadlines effortlessly.</li>
+                        <li><span class="font-bold">Progress Tracking:</span> Mark tasks as "Pending" or "Completed" to monitor progress.</li>
+                        <li><span class="font-bold">Secure & Personalized:</span> Each user has their own private task list.</li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 bg-slate-200 text-center py-4 px-50">
+                    <h2 class="text-3xl font-semibold text-gray-800 mt-4">Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="p-4 bg-cyan-100 rounded-lg shadow-md hover:shadow-lg hover:bg-cyan-200 focus:outline-2 focus:outline-offset-2 focus:outline-cyan-200 active:bg-cyan-200">
+                            <h3 class="font-bold text-gray-800">✅ Task Management</h3>
+                            <p class="text-gray-600">Add, edit, delete, and organize tasks efficiently.</p>
+                        </div>
+                        <div class="p-4 bg-cyan-100 rounded-lg shadow-md hover:shadow-lg hover:bg-cyan-200 focus:outline-2 focus:outline-offset-2 focus:outline-cyan-200 active:bg-cyan-200">
+                            <h3 class="font-bold text-gray-800">🔒 User Authentication</h3>
+                            <p class="text-gray-600">Secure login system to protect your tasks.</p>
+                        </div>
+                        <div class="p-4 bg-cyan-100 rounded-lg shadow-md hover:shadow-lg hover:bg-cyan-200 focus:outline-2 focus:outline-offset-2 focus:outline-cyan-200 active:bg-cyan-200">
+                            <h3 class="font-bold text-gray-800">📌 Sorting & Filtering</h3>
+                            <p class="text-gray-600">Find tasks quickly based on priority, due date, or status.</p>
+                        </div>
+                        <div class="p-4 bg-cyan-100 rounded-lg shadow-md hover:shadow-lg hover:bg-cyan-200 focus:outline-2 focus:outline-offset-2 focus:outline-cyan-200 active:bg-cyan-200">
+                            <h3 class="font-bold text-gray-800">🎨 Modern UI</h3>
+                            <p class="text-gray-600">Clean, responsive design built with Tailwind CSS.</p>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}
