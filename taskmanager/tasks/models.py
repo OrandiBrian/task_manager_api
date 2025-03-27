@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
-from django.conf import settings
 import uuid
 
 # Custom User Manager
@@ -52,8 +51,8 @@ class Task(models.Model):
         ("Completed", "Completed"),
     ]
 
-    title = models.CharField(max_length=255)
-    description = models.TextField()
+    title = models.CharField(max_length=255, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
     priority = models.CharField(max_length=6, choices=PRIORITY_CHOICES)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="Pending")
     user = models.ForeignKey("tasks.CustomUser", on_delete=models.CASCADE)

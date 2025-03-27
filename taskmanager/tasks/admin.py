@@ -10,6 +10,7 @@ class TaskAdmin(admin.ModelAdmin):
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ["username", "email", "is_active", "is_superuser", "is_staff", "date_joined", "last_login"]
     search_fields = ["name", "email"]
+    list_filter = ["is_active", "is_superuser", "is_staff"]
 
 # register sites
 admin.site.register(Task, TaskAdmin)

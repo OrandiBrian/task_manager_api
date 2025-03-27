@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.views.generic import ListView
 from .forms import CustomUserCreationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Task list view
 class TaskListView(ListView):
@@ -18,9 +19,30 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-# task list view
+# task list
+@login_required
 def task_list(request):
-    return render(request, "tasks/task_list.html", {"tasks": Task.objects.all()})
+    tasks = Task.objects.filter(user = request.user)
+    return render(request, "tasks/task_list.html", {
+        "tasks": tasks
+    })
+
+# create tasks
+@login_required
+def add_task(request):
+    if request.method == "POST":
+        title = request.POST.get("title", "")
+        description = request.POST.get("description", "")
+        priority = request.POST.get("priority", "")
+        status = request.POST.get("status", "")
+
+        if title:
+            Task.objects.create(title=title, description=description, priority=priority, status=status, user=request.user)
+            return redirect("tasks:task_list")
+        else:
+            print("Not valid")
+
+    return render(request, "tasks/add.html")
 
 # Index view
 def index(request):
