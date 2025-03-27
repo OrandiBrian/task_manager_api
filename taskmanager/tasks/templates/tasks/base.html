@@ -16,8 +16,8 @@
                     <a href="#" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded">New Task</a>
                     <a href="#" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded">Logout</a>
                 
-                    <a href="#" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded">Login</a>
-                    <a href="#" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded">Sign Up</a>
+                    <a href="{% url 'tasks:login' %}" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded">Login</a>
+                    <a href="{% url 'tasks:signup' %}" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded">Sign Up</a>
                 </div>
         </nav>
 

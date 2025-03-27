@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TaskViewSet, index, about
+from .views import TaskViewSet, index, about, signup, login
 from rest_framework.routers import DefaultRouter
 
 # setting routers
@@ -14,4 +14,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("", index, name="index"),
     path("about/", about, name="about"),
+    path("signup/", signup, name="signup"),
+    path("login/", login, name="login"),
 ]
