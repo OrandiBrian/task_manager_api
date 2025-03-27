@@ -131,3 +131,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Setting the custom user model
 AUTH_USER_MODEL = "tasks.CustomUser"
+
+# redirection urls
+# LOGIN_REDIRECT_URL = "tasks:index"
+# LOGOUT_REDIRECT_URL = "tasks:login"
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+# ]

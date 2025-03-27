@@ -1,40 +1,33 @@
-from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import UserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.conf import settings
 import uuid
 
-
-# creating custom user manager
-class CustomUserManager(UserManager):
-    def _create_user(self, name, email, password, **extra_fields):
+# Custom User Manager
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, username, password=None, **extra_fields):
         if not email:
             raise ValueError("The Email field must be set")
+        if not username:
+            raise ValueError("The Username field must be set")
+        
         email = self.normalize_email(email)
-        user = self.model(name=name, email=email, **extra_fields)
+        user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
-    
-    # creating user
-    def create_user(self, name=None, email=None, password=None, **extra_fields):
-        extra_fields.setdefault("is_staff", False)
-        extra_fields.setdefault("is_superuser", False)
 
-        return self._create_user(name, email, password, **extra_fields)
-    
-    # create superuser
-    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
+    def create_superuser(self, email, username=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        return self.create_user(email, username, password=password, **extra_fields)
 
-        return self._create_user(name, email, password, **extra_fields)
-    
-# creating custom user model
+# Custom User Model
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -43,35 +36,28 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    # assigning email as username
     USERNAME_FIELD = "email"
-    EMAIL_FIELD = "email"
-    REQUIRED_FIELDS = ["name"]
+    REQUIRED_FIELDS = ["username"]
 
-
-# creating Task model
+# Task Model
 class Task(models.Model):
-    # priority choices
     PRIORITY_CHOICES = [
         ("Low", "Low"),
         ("Medium", "Medium"),
         ("High", "High"),
     ]
 
-    # status choices
     STATUS_CHOICES = [
         ("Pending", "Pending"),
         ("Completed", "Completed"),
     ]
 
-    # model attributes
     title = models.CharField(max_length=255)
     description = models.TextField()
     priority = models.CharField(max_length=6, choices=PRIORITY_CHOICES)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="Pending")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey("tasks.CustomUser", on_delete=models.CASCADE)
     completed_at = models.DateTimeField(null=True, blank=True)
 
-    # string representation of the model
     def __str__(self):
         return self.title

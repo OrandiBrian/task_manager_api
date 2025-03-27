@@ -1,20 +1,18 @@
 from django.urls import path, include
-from .views import TaskViewSet, index, about, signup, login, logout
+from .views import TaskViewSet, index, about, signup, login_view, logout_view, task_list
 from rest_framework.routers import DefaultRouter
 
-# setting routers
+app_name = "tasks"  # ✅ Ensures namespacing works
+
 router = DefaultRouter()
 router.register(r"tasks", TaskViewSet)
 
-# setting app name
-app_name = "tasks"
-
-# configuring urls
 urlpatterns = [
     path("api/", include(router.urls)),
-    path("", index, name="index"),
+    path("tasks_list/", task_list, name="task_list"),
+    path("", index, name="index"),  
     path("about/", about, name="about"),
     path("signup/", signup, name="signup"),
-    path("login/", login, name="login"),
-    path("logout/", logout, name="logout"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
 ]
