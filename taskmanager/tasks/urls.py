@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TaskViewSet, index, about, signup, login_view, logout_view, task_list, add_task, task_detail, edit_task
+from .views import TaskViewSet, index, about, signup, login_view, logout_view, task_list, add_task, task_detail, edit_task, delete_task
 from rest_framework.routers import DefaultRouter
 
 app_name = "tasks"
@@ -18,4 +18,5 @@ urlpatterns = [
     path("add/", add_task, name="add_task"),
     path("tasks_list/<int:pk>/", task_detail, name="task"),
     path("tasks_list/<int:pk>/edit/", edit_task, name="edit_task"),
+    path("tasks_list/<int:pk>/delete/", delete_task, name="delete_task"),
 ]

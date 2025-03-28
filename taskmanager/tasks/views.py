@@ -39,8 +39,6 @@ def add_task(request):
         if title:
             Task.objects.create(title=title, description=description, priority=priority, status=status, user=request.user)
             return redirect("tasks:task_list")
-        else:
-            print("Not valid")
 
     return render(request, "tasks/add.html")
 
@@ -74,6 +72,13 @@ def edit_task(request, pk):
     return render(request, "tasks/edit.html", {
         "task": task
     })
+
+# delete task
+@login_required
+def delete_task(request, pk):
+    task = Task.objects.filter(user = request.user).get(pk=pk)
+    task.delete()
+    return redirect("tasks:task_list")
 
 # Index view
 def index(request):

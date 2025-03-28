@@ -27,7 +27,7 @@
                 <div class="space-x-1 flex justify-end mt-2">
                     <a href="{% url 'tasks:task' task.pk %}" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded text-white">View</a>
                     <a href="{% url 'tasks:edit_task' task.pk %}" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded text-white">Edit</a>
-                    <a href="#" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded text-white">Delete</a>
+                    <a href="{% url 'tasks:delete_task' task.pk %}" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded text-white">Delete</a>
                 </div>
             </div>
 
