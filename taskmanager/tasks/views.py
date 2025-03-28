@@ -98,7 +98,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect("tasks:index")
+            return redirect("tasks:task_list")
         else:
             messages.error(request, "Invalid email or password")
             return redirect("tasks:login")

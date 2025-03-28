@@ -3,6 +3,7 @@
 {% block content %}
 
     <div class="max-w-4xl mx-auto mt-8">
+        <h1 class="text-2xl font-semibold text-center mb-6">Welcome {{ request.user }}!</h1>
         <h1 class="text-4xl font-bold text-center mb-6 text-blue-600">Tasks</h1>
         
         {% for task in tasks %}
