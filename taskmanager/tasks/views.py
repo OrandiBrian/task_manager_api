@@ -44,6 +44,37 @@ def add_task(request):
 
     return render(request, "tasks/add.html")
 
+@login_required
+def task_detail(request, pk):
+    task = Task.objects.filter(user = request.user).get(pk=pk)
+    return render(request, "tasks/task.html", {
+        "task": task
+    })
+
+# edit task
+@login_required
+def edit_task(request, pk):
+    task = Task.objects.filter(user = request.user).get(pk=pk)
+
+    if request.method == "POST":
+        title = request.POST.get("title", "")
+        description = request.POST.get("description", "")
+        priority = request.POST.get("priority", "")
+        status = request.POST.get("status", "")
+
+        if title:
+            task.title = title
+            task.description = description
+            task.priority = priority
+            task.status = status
+            task.save()
+
+            return redirect("tasks:task_list")      
+    
+    return render(request, "tasks/edit.html", {
+        "task": task
+    })
+
 # Index view
 def index(request):
     return render(request, "tasks/index.html")
