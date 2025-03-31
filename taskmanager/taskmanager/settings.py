@@ -24,10 +24,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w0pm#a7pm^g7&$+)7nb94h)m3vp318q-2v1&of0*l6&=9&8f*m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
+# Secure browser protections
+SECURE_BROWSER_XSS_FILTER = True  # Helps prevent XSS attacks
+X_FRAME_OPTIONS = 'DENY'  # Prevents clickjacking attacks
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents MIME-type sniffing attacks
+
+# Ensure secure HTTP headers
+SECURE_HSTS_SECONDS = 31536000  # Enables HTTP Strict Transport Security (HSTS) for one year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Secure cookies
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Ensures session cookies are only sent over HTTPS
+
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000  # One year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 

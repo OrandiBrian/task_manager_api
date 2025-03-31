@@ -148,6 +148,11 @@ def signup(request):
             user = form.save()
             login(request, user)
             return redirect("tasks:login")
+        else:
+            # Display form errors to the user
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = CustomUserCreationForm()
     return render(request, "tasks/signup.html", {"form": form})
