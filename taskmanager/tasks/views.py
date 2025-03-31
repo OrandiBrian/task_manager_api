@@ -147,7 +147,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("tasks:index")
+            return redirect("tasks:login")
     else:
         form = CustomUserCreationForm()
     return render(request, "tasks/signup.html", {"form": form})
