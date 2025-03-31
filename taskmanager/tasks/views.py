@@ -1,5 +1,11 @@
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.filters import OrderingFilter
+from django.utils.timezone import now
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task
 from .serializers import TaskSerializer
 from django.contrib.auth import login, authenticate, logout
@@ -10,9 +16,33 @@ from django.contrib.auth.decorators import login_required
 
 # Task list view
 class TaskListView(ListView):
-    model = Task
-    template_name = "tasks/task_list.html"
-    context_object_name = "tasks"
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ["status", "priority", "due_date"]
+    ordering_fields = ["priority", "due_date"]
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        
+    @action(detail=True, method=["post"])
+    def mark_complete(self, request, pk=None):
+        task = self.get_object()
+        task.status = "Completed"
+        task.completed_at = now()
+        task.save()
+        return Response({"message": "Task marked as completed"}, status=status.HTTP_200_OK)
+    
+    @action(detail=True, method=["post"])
+    def mark_incomplete(self, request, pk=None):
+        task = self.get_object()
+        task.status = "Pending"
+        task.completed_at = None
+        task.save()
+        return Response({"message": "Task marked as incomplete"}, status=status.HTTP_200_OK)
 
 # Task viewset API view
 class TaskViewSet(viewsets.ModelViewSet):
