@@ -1,26 +1,25 @@
 from django.shortcuts import render, redirect
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.filters import OrderingFilter
 from django.utils.timezone import now
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task
 from .serializers import TaskSerializer
 from django.contrib.auth import login, authenticate, logout
-from django.views.generic import ListView
 from .forms import CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# Task list view
-class TaskListView(ListView):
+# Task viewset API view
+class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ["status", "priority", "due_date"]
-    ordering_fields = ["priority", "due_date"]
+    filterset_fields = ["status", "priority"]
+    ordering_fields = ["priority"]
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
@@ -28,7 +27,7 @@ class TaskListView(ListView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         
-    @action(detail=True, method=["post"])
+    @action(detail=True, methods=["post"])
     def mark_complete(self, request, pk=None):
         task = self.get_object()
         task.status = "Completed"
@@ -36,18 +35,13 @@ class TaskListView(ListView):
         task.save()
         return Response({"message": "Task marked as completed"}, status=status.HTTP_200_OK)
     
-    @action(detail=True, method=["post"])
+    @action(detail=True, methods=["post"])
     def mark_incomplete(self, request, pk=None):
         task = self.get_object()
         task.status = "Pending"
         task.completed_at = None
         task.save()
         return Response({"message": "Task marked as incomplete"}, status=status.HTTP_200_OK)
-
-# Task viewset API view
-class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
 
 # task list
 @login_required
@@ -140,6 +134,7 @@ def logout_view(request):
     logout(request)
     return redirect("tasks:login")
 
+
 # Signup page view
 def signup(request):
     if request.method == "POST":
@@ -156,3 +151,12 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, "tasks/signup.html", {"form": form})
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def signup_api(request):
+    form = CustomUserCreationForm(request.data)
+    if form.is_valid():
+        user = form.save()
+        return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)

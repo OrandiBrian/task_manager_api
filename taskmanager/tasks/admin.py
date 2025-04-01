@@ -3,7 +3,7 @@ from .models import Task, CustomUser
 from django.contrib.auth.admin import UserAdmin
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ["title", "priority", "status", "completed_at"]
+    list_display = ["title", "priority", "status", "completed_at", "user"]
     search_fields = ["title", "priority"]
     list_filter = ["priority", "status"]
 
